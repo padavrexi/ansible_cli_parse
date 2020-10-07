@@ -1,0 +1,24 @@
+---
+  - example: 'Ethernet0/0 is up, line protocol is up'
+    getval: '(?P<name>\S+) is (?P<oper_state>.+), line protocol is (?P<line_state>\S+)'
+    result:
+      "{{ name }}":
+        name: "{{ name }}"
+        state:
+          operating: "{{ oper_state }}"
+          line_state: "{{ line_state }}"
+    shared: true
+  
+  - example: '  Description: This is not a loopback'
+    getval: '\s+Description: (?P<description>.*)'
+    result:
+      "{{ name }}":
+        name: "{{ name }}"
+        description: "{{ description }}"
+  
+  - example: '  Hardware is AmdP2, address is aabb.cc00.2000 (bia aabb.cc00.2000)'
+    getval: '\s+Hardware is (?P<hardware>.*), address is (?P<mac>\S+)'
+    result:
+      "{{ name }}":
+        hardware: "{{ hardware }}"
+        mac_address: "{{ mac }}"

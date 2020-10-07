@@ -1,0 +1,17 @@
+---
+- name: Play with cli_parse module
+  hosts: all
+  gather_facts: True
+  tasks:
+  # - debug:
+  #     msg: "{{ ansible_facts | to_nice_yaml }}"
+
+  - name: Play with cli_parse module
+    ansible.netcommon.cli_parse:
+      command: "show interfaces"
+      parser:
+        name: ansible.netcommon.native
+      set_fact: interfaces
+
+  - debug:
+      msg: "{{ interfaces | to_nice_yaml }}"
